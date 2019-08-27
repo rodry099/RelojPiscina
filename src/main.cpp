@@ -26,6 +26,11 @@ IPAddress ip(192, 168, 0, 1);
 ESP8266WebServer server(80);
 //WiFiServer servidor(8080);
 
+/***************************************************
+ * Inicializa PCF8574 para motor y las luces piscina
+ ***************************************************/
+PCF8574 relesPiscina(0x20);
+
 void setup() {
    Serial.begin(115200);
    bool result = SPIFFS.begin();

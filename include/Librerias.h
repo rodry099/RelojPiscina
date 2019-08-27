@@ -6,6 +6,7 @@
     #include <ESP8266WebServer.h>
     #include <FS.h>
     #include <Wire.h>
+    #include "PCF8574.h"
     #include <PubSubClient.h>
     #include <ArduinoJson.h>
 
@@ -15,4 +16,6 @@
     extern PubSubClient client;
     extern IPAddress ip;
     extern ESP8266WebServer server;
+    extern PCF8574 relesPiscina;
+    
 #endif
