@@ -31,8 +31,18 @@ ESP8266WebServer server(80);
  ***************************************************/
 PCF8574 relesPiscina(0x20);
 
+/***************************************************
+ * Declara reloj del sistema
+ * ************************************************/
+RtcDS3231<TwoWire> Reloj(Wire);
+
 void setup() {
    Serial.begin(115200);
+   Reloj.Begin(); // inicializa reloj del sistema
+   relesPiscina.begin();
+   relesPiscina.write8(B11111111);
+   reloj();
+   tomaHora();
    bool result = SPIFFS.begin();
    Serial.println("SPIFFS opened: " + result);
 

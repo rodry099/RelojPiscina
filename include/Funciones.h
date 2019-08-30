@@ -9,6 +9,8 @@ void arranqueNormalJson();
 void guarda_config();
 boolean reconnect();
 void registerDevice(String);
+void reloj();
+void tomaHora();
 
 //Rutinas Callbacks
 void callback(char*, byte*, unsigned int);

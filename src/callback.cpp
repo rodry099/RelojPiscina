@@ -23,14 +23,15 @@ void callback(char* topic, byte* payload, unsigned int length){
         } else {
         //Serial.println("parseObject() FAILED");
         }
-        canalDispositivo = obj["canal"];
-        estadoDispositivo = obj["status"];
-
-        String onOff(estadoDispositivo);
+        
         String Stopic(topic);
 
-        Serial.println(canalDispositivo);
-    
+        const char* dias = obj["dias"];
+        const char* horaInicio = obj["horaInicio"];
+
+        Serial.println(dias);
+        Serial.println(horaInicio);
+
     /***************************************
       si recibe el topic device/setup
       llama a la subrutina registerDevices
