@@ -2,9 +2,9 @@
 "ssid":"MOVISTAR_B2F0",
 "password":"935871157cls1960amrc1962",
 "id":"piscina",
-"canales":"2",
+"canales":"1",
 "servidor":"192.168.0.166",
 "categoria":"piscina",
 "servidorNodeRed":"",
-"registrado":0
+"registrado":1
 }

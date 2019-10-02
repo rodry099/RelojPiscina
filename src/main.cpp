@@ -3,14 +3,24 @@
 #include "Globales.h"
 #include "Funciones.h"
 
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+#define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 WiFiClient espClient;
 PubSubClient client(espClient);
-
+long leeHora = 0;
+long lecturaTecla = 0;
 long lastreconnectattempt = 0;
 long anunciaDisposito = 0;
 
-String id_disp = "";
 int NumCanales;
+uint8_t horaYdia[3] = {0,0,0};
+
+String id_disp = "";
 String output = "";
 String canal;
 String willmsg; //topic direccion dispositivo
@@ -38,11 +48,17 @@ RtcDS3231<TwoWire> Reloj(Wire);
 
 void setup() {
    Serial.begin(115200);
+   Wire.begin(0,2); // para Esp-01 SDA = 0 , SCL = 2;
+
+   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
+    Serial.println(F("SSD1306 allocation failed"));
+  }
    Reloj.Begin(); // inicializa reloj del sistema
    relesPiscina.begin();
    relesPiscina.write8(B11111111);
    reloj();
-   tomaHora();
+   tomaHora(horaYdia);
    bool result = SPIFFS.begin();
    Serial.println("SPIFFS opened: " + result);
 
@@ -55,6 +71,7 @@ void setup() {
     // inicia normalmente conectando a la red que se haya configurado
 
     arranqueNormalJson();
+    display.display();
     client.setServer(ServerMqtt.c_str(), 1883);
     client.setCallback(callback);
     
@@ -66,13 +83,10 @@ void setup() {
 }
 
 void loop() {
-
-    client.loop();
-    delay(1);
-
+    
  if (!client.connected()) {
     long now = millis();
-    if(now - lastreconnectattempt >5000){
+    if(now - lastreconnectattempt > 5000){
       lastreconnectattempt = now;
       if(reconnect()){
         lastreconnectattempt = 0;
@@ -89,5 +103,26 @@ void loop() {
       Serial.println(output);
     }
   }
-  
+  long tempoTecla = millis();
+  if(tempoTecla - lecturaTecla > 1000){
+    lecturaTecla = tempoTecla;
+    int tecla = relesPiscina.read(0);
+    if( tecla == 1){
+      menuDisplay(1);
+      seleccionMenu();
+      tomaHora(horaYdia);
+      displayDiaHour(horaYdia);
+    }
+  }
+
+  long tempoHora = millis();
+  if(tempoHora - leeHora > 60000){
+    leeHora = tempoHora;
+    tomaHora(horaYdia);
+    displayDiaHour(horaYdia);
+  }
+
+    client.loop();
+    delay(1);
+
 }

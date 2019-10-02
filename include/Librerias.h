@@ -6,6 +6,8 @@
     #include <ESP8266WebServer.h>
     #include <FS.h>
     #include <Wire.h>
+    #include <Adafruit_GFX.h>
+    #include <Adafruit_SSD1306.h>
     #include <RtcDS3231.h>
     #include "PCF8574.h"
     #include <PubSubClient.h>
@@ -19,5 +21,6 @@
     extern ESP8266WebServer server;
     extern PCF8574 relesPiscina;
     extern RtcDS3231<TwoWire> Reloj;
+    extern Adafruit_SSD1306 display;
     
 #endif

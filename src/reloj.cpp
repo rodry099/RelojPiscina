@@ -11,15 +11,8 @@
 
 void reloj(){    
     
-    //--------RTC SETUP ------------
-    // if you are using ESP-01 then uncomment the line below to reset the pins to
-    // the available pins for SDA, SCL
-    // Wire.begin(0, 2); // due to limited pins, use pin 0 and 2 for SDA, SCL
+    RtcDateTime dt = RtcDateTime(2019,10,1,17,3,00);
     
-    RtcDateTime dt = RtcDateTime(2019,8,28,17,36,00);
-    //printDateTime(compiled);
-    Serial.println(dt);
-
     if (!Reloj.IsDateTimeValid()) 
     {
         if (Reloj.LastError() != 0)
@@ -71,4 +64,7 @@ void reloj(){
     // just clear them to your needed state
     Reloj.Enable32kHzPin(false);
     Reloj.SetSquareWavePin(DS3231SquareWavePin_ModeNone);
+    Serial.print(now.Hour());
+    Serial.print(":");
+    Serial.println(now.Minute());
 }
