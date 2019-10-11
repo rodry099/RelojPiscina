@@ -19,7 +19,7 @@
     extern PubSubClient client;
     extern IPAddress ip;
     extern ESP8266WebServer server;
-    extern PCF8574 relesPiscina;
+    extern PCF8574 puertosI2c;
     extern RtcDS3231<TwoWire> Reloj;
     extern Adafruit_SSD1306 display;
     

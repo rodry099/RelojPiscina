@@ -17,19 +17,19 @@ void menuDisplay(int seleccion){
     }
     display.clearDisplay();
 
-    display.setTextSize(1);             // Normal 1:1 pixel scale
-    display.setTextColor(color);        // Draw white text
-    display.setCursor(0,0);             // Start at top-left corner
+    display.setTextSize(1);            
+    display.setTextColor(color);
+    display.setCursor(0,0);             
     display.println(F("SELECT PROGRAM"));
 
-    display.setTextSize(1);             // Normal 1:1 pixel scale
-    display.setTextColor(colorA,fondoA);       // Draw white text
-    display.setCursor(0,12);             // Start at top-left corner
+    display.setTextSize(1);            
+    display.setTextColor(colorA,fondoA);
+    display.setCursor(0,12);             
     display.println(F("PROGRAM A"));
 
-    display.setTextSize(1);             // Normal 1:1 pixel scale
-    display.setTextColor(colorB,fondoB);        // Draw white text
-    display.setCursor(0,24);             // Start at top-left corner
+    display.setTextSize(1);            
+    display.setTextColor(colorB,fondoB);
+    display.setCursor(0,24);             
     display.println(F("PROGRAM B"));
 
     display.display();

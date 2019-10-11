@@ -14,10 +14,11 @@ boolean reconnect() {
       if(registrado > 0 ){
       String topicS = servidorNodeRed + "/" + categoria + "/" + id_disp + "/switch";
       client.subscribe(topicS.c_str());
-      Serial.println(topicS);
       String topicF = servidorNodeRed + "/" + categoria + "/" + id_disp + "/feedback";
-      Serial.println(topicF);
       client.subscribe(topicF.c_str());
+      String topicP = servidorNodeRed + "/" + categoria + "/" + id_disp + "/Program";
+      Serial.println(topicP);
+      client.subscribe(topicP.c_str());
     }
 
   }

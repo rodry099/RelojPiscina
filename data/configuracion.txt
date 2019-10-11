@@ -5,6 +5,6 @@
 "canales":"1",
 "servidor":"192.168.0.166",
 "categoria":"piscina",
-"servidorNodeRed":"",
+"servidorNodeRed":"serverSwitch",
 "registrado":1
 }

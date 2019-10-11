@@ -27,6 +27,8 @@ String willmsg; //topic direccion dispositivo
 String ServerMqtt; // direccion del Brokker mqtt
 String categoria; //categoria del dispositivo
 String servidorNodeRed;
+
+int datosProgramador[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 int registrado = 0;
 int canalDispositivo;
 const char* estadoDispositivo;
@@ -39,7 +41,7 @@ ESP8266WebServer server(80);
 /***************************************************
  * Inicializa PCF8574 para motor y las luces piscina
  ***************************************************/
-PCF8574 relesPiscina(0x20);
+PCF8574 puertosI2c(0x20);
 
 /***************************************************
  * Declara reloj del sistema
@@ -55,8 +57,8 @@ void setup() {
     Serial.println(F("SSD1306 allocation failed"));
   }
    Reloj.Begin(); // inicializa reloj del sistema
-   relesPiscina.begin();
-   relesPiscina.write8(B11111111);
+   puertosI2c.begin();
+   puertosI2c.write8(B11111111);
    reloj();
    tomaHora(horaYdia);
    bool result = SPIFFS.begin();
@@ -71,6 +73,9 @@ void setup() {
     // inicia normalmente conectando a la red que se haya configurado
 
     arranqueNormalJson();
+
+    leeProgramacion();
+
     display.display();
     client.setServer(ServerMqtt.c_str(), 1883);
     client.setCallback(callback);
@@ -106,7 +111,7 @@ void loop() {
   long tempoTecla = millis();
   if(tempoTecla - lecturaTecla > 1000){
     lecturaTecla = tempoTecla;
-    int tecla = relesPiscina.read(0);
+    int tecla = puertosI2c.read(0);
     if( tecla == 1){
       menuDisplay(1);
       seleccionMenu();

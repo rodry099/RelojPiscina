@@ -13,8 +13,17 @@ void reloj();
 void tomaHora(uint8_t[]);
 void menuDisplay(int);
 void seleccionMenu();
-void programarCiclo();
+void programarCiclo(int);
 void displayDiaHour(uint8_t[]);
+void displayBloqProg(String, int, int[]);
+void confirmarProg(int []);
+void guardarProg(int []);
+bool guardaProgramacion(String);
+String matrizAjson(String, int []);
+void leeProgramacion();
+bool contador(long, long, int);
+String controLuces();
+String controlMotor();
 
 //Rutinas Callbacks
 void callback(char*, byte*, unsigned int);

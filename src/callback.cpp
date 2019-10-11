@@ -5,32 +5,58 @@
 
 void callback(char* topic, byte* payload, unsigned int length){
 
-  String estadoDevuelto = "";
-  String solicitud = servidorNodeRed + "/" + categoria + "/" + id_disp + "/feedback";
-  String respuestaEstado = servidorNodeRed + "/estadoDispositivos";
-
-  const int capacity = JSON_OBJECT_SIZE(4);
-  StaticJsonBuffer<capacity> DatosMqtt;
-  char datos[80];
+  const int capacity = JSON_OBJECT_SIZE(20);
+  DynamicJsonBuffer DatosMqtt(capacity);
+  char datos[length];
   unsigned int i=0;
   for (i=0;i<length;i++) {
     datos[i] = (char)payload[i];
   }
-  JsonObject& obj = DatosMqtt.parseObject(datos);
 
-      if (obj.success()) {
-          //Serial.println("parseObject() succeeded");
+  Serial.println(datos);
+  
+  JsonObject& datosRecibidos = DatosMqtt.parseObject(datos);
+
+      if (datosRecibidos.success()) {
+         
         } else {
         //Serial.println("parseObject() FAILED");
         }
-        
+        String solicitud = datosRecibidos["solicitud"];
         String Stopic(topic);
 
-        const char* dias = obj["dias"];
-        const char* horaInicio = obj["horaInicio"];
+        if(solicitud.equals("luces")){
+          String estado = controLuces();
+          client.publish("serverSwitch/piscina/piscina/confirmacion",estado.c_str());
+        }
 
-        Serial.println(dias);
-        Serial.println(horaInicio);
+        if(solicitud.equals("motor")){
+          String estado = controlMotor();
+          client.publish("serverSwitch/piscina/piscina/confirmacion",estado.c_str());
+        }
+
+        if(solicitud.equals("guardar")){ 
+          String datosAguardar = "", guardado = "", payload = "";
+          datosRecibidos.remove("solicitud");
+          datosRecibidos.printTo(datosAguardar);
+          bool resultado = guardaProgramacion(datosAguardar);
+          if(resultado) {
+            guardado = "guardadoOk";
+            leeProgramacion();
+          }else guardado = "guardadoError";
+          payload += "{\"";
+          payload += "solicitud\":";
+          payload += "\"";
+          payload += guardado;
+          payload +="\"}";
+          client.publish("serverSwitch/piscina/piscina/confirmacion",payload.c_str());
+        }
+
+        if(solicitud.equals("datos")){
+          leeProgramacion();
+          String payload = matrizAjson("datos", datosProgramador);
+          client.publish("serverSwitch/piscina/piscina/confirmacion",payload.c_str());
+        }
 
     /***************************************
       si recibe el topic device/setup

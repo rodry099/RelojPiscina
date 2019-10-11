@@ -15,11 +15,14 @@ String diaSemana[] = {
 };
 
 void displayDiaHour(uint8_t horaDia[]){
+
+    uint8_t centrado = 128 - (diaSemana[horaDia[0]].length()*8);
+    
     display.clearDisplay();
 
     display.setTextSize(1);
     display.setTextColor(WHITE);
-    display.setCursor(35+2,0);
+    display.setCursor((centrado/2) + 8 ,0);
     display.println(diaSemana[horaDia[0]]);
 
     display.setTextSize(2);
