@@ -111,7 +111,7 @@ void loop() {
   long tempoTecla = millis();
   if(tempoTecla - lecturaTecla > 1000){
     lecturaTecla = tempoTecla;
-    int tecla = puertosI2c.read(0);
+    int tecla = puertosI2c.read(ENTER);
     if( tecla == 1){
       menuDisplay(1);
       seleccionMenu();

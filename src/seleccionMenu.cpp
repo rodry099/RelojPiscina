@@ -13,13 +13,13 @@ void seleccionMenu(){
 
     while(salir == false){
         ahora = millis();
-        arriba = puertosI2c.read(4);
+        arriba = puertosI2c.read(ARRIBA);
         delay(100);
-        abajo = puertosI2c.read(5);
+        abajo = puertosI2c.read(ABAJO);
         delay(100);
-        atras = puertosI2c.read(7);
+        atras = puertosI2c.read(IZQUIERDA);
         delay(100);
-        entrar = puertosI2c.read(0);
+        entrar = puertosI2c.read(ENTER);
         delay(100);
         if(arriba == 1){
             tiempoMaximo = ahora;

@@ -26,9 +26,9 @@ void confirmarProg(int datos[]){
 
     while (!salir)
     {
-      ok = puertosI2c.read(7);
+      ok = puertosI2c.read(IZQUIERDA);
       delay(100);
-      cancelar = puertosI2c.read(6);
+      cancelar = puertosI2c.read(DERECHA);
       delay(100);
       ahora = millis();
 

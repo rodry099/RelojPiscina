@@ -3,7 +3,7 @@
 #include "Globales.h"
 #include "Funciones.h"
 
-void displayBloqProg(String bloque, int cursor, int datos[]){
+void displayBloqProg(String bloque, int posCursor, int datos[]){
     int indice = 0;
     if(bloque.equals("B")) indice += 3;
 
@@ -19,21 +19,21 @@ void displayBloqProg(String bloque, int cursor, int datos[]){
     display.setTextSize(2);
     display.setCursor(0,14);
 
-    if(cursor == 0) display.setTextColor(0,1);
+    if(posCursor == 0) display.setTextColor(0,1);
     if(datos[indice] < 10) display.print("0");     
     display.print(datos[indice]);
 
     display.setTextColor(1,0);
     display.print(":");
 
-    if(cursor == 1) display.setTextColor(0,1);
+    if(posCursor == 1) display.setTextColor(0,1);
     if(datos[indice+1] < 10) display.print("0");
     display.print(datos[indice+1]);
 
     display.setTextColor(1,0);
     display.print(" ");
 
-    if(cursor == 2) display.setTextColor(0,1);
+    if(posCursor == 2) display.setTextColor(0,1);
     if(datos[indice+2] < 10) display.print("0");
     display.print(datos[indice+2]);
 

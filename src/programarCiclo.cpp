@@ -6,7 +6,7 @@
 void programarCiclo(int bloqueProg){
 
     long ahora = 0, tiempoMaximo = 0;
-    int arriba, abajo, izquierda, derecha, entrar, seleccion = 0;
+    int arriba, abajo, izquierda, derecha, entrar, posCursor = 0;
     bool salir = false;
     int indice = 0;
     String bloque = "";
@@ -32,79 +32,79 @@ void programarCiclo(int bloqueProg){
         break;
     }
 
-    displayBloqProg(bloque,seleccion,datosTemporales);
+    displayBloqProg(bloque,posCursor,datosTemporales);
 
     ahora = millis();
     tiempoMaximo = ahora;
 
     while(!salir){
-        arriba = puertosI2c.read(4);
+        arriba = puertosI2c.read(ARRIBA);
         delay(100);
-        abajo = puertosI2c.read(5);
+        abajo = puertosI2c.read(ABAJO);
         delay(100);
-        izquierda = puertosI2c.read(7);
+        izquierda = puertosI2c.read(IZQUIERDA);
         delay(100);
-        derecha = puertosI2c.read(6);
+        derecha = puertosI2c.read(DERECHA);
         delay(100);
-        entrar = puertosI2c.read(0);
+        entrar = puertosI2c.read(ENTER);
         delay(100);
         ahora = millis();
         if(izquierda == 1){
             tiempoMaximo = ahora;
-            if(seleccion > 0) seleccion--;
-             displayBloqProg(bloque,seleccion, datosTemporales);
+            if(posCursor > 0) posCursor--;
+             displayBloqProg(bloque,posCursor, datosTemporales);
         }
         if(derecha == 1){
             tiempoMaximo = ahora;
-            if(seleccion < 2) seleccion++;
-             displayBloqProg(bloque, seleccion, datosTemporales);
+            if(posCursor < 2) posCursor++;
+             displayBloqProg(bloque, posCursor, datosTemporales);
         }
 
-        if(arriba == 1 && seleccion == 0){
+        if(arriba == 1 && posCursor == 0){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] > 0){
-                datosTemporales[indice+seleccion]--;
-                displayBloqProg(bloque,seleccion, datosTemporales);
+            if(datosTemporales[indice+posCursor] > 0){
+                datosTemporales[indice+posCursor]--;
+                displayBloqProg(bloque,posCursor, datosTemporales);
             }
         }
 
-        if(abajo == 1 && seleccion == 0){
+        if(abajo == 1 && posCursor == 0){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] < 23){
-                datosTemporales[indice+seleccion]++;
-                displayBloqProg(bloque,seleccion, datosTemporales);
+            if(datosTemporales[indice+posCursor] < 23){
+                datosTemporales[indice+posCursor]++;
+                displayBloqProg(bloque,posCursor, datosTemporales);
             }
         }
 
-        if(arriba == 1 && seleccion == 1){
+        if(arriba == 1 && posCursor == 1){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] > 0){
-                datosTemporales[indice+seleccion]--;
-                displayBloqProg(bloque,seleccion, datosTemporales);
+            if(datosTemporales[indice+posCursor] > 0){
+                datosTemporales[indice+posCursor]--;
+                displayBloqProg(bloque,posCursor, datosTemporales);
             }
         }
 
-        if(abajo == 1 && seleccion == 1){
+        if(abajo == 1 && posCursor == 1){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] < 59){
-                datosTemporales[indice+seleccion]++;
-                displayBloqProg(bloque,seleccion, datosTemporales);
+            if(datosTemporales[indice+posCursor] < 59){
+                datosTemporales[indice+posCursor]++;
+                displayBloqProg(bloque,posCursor, datosTemporales);
             }
         }
 
-        if(arriba == 1 && seleccion == 2){
+        if(arriba == 1 && posCursor == 2){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] > 0){
-                datosTemporales[indice+seleccion]--;
-                displayBloqProg(bloque,seleccion,datosTemporales);
+            if(datosTemporales[indice+posCursor] > 0){
+                datosTemporales[indice+posCursor]--;
+                displayBloqProg(bloque,posCursor,datosTemporales);
             }
         }
 
-        if(abajo == 1 && seleccion == 2){
+        if(abajo == 1 && posCursor == 2){
             tiempoMaximo = ahora;
-            if(datosTemporales[indice+seleccion] < 8){
-                datosTemporales[indice+seleccion]++;
-                displayBloqProg(bloque,seleccion, datosTemporales);
+            if(datosTemporales[indice+posCursor] < 8){
+                datosTemporales[indice+posCursor]++;
+                displayBloqProg(bloque,posCursor, datosTemporales);
             }
         }
 

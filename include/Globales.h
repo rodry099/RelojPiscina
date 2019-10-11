@@ -6,6 +6,11 @@
 //Variables **********************
 #define LUCES_PISCINA 2
 #define MOTOR_PISCINA 3
+#define ARRIBA 4
+#define ABAJO 5
+#define DERECHA 6
+#define IZQUIERDA 7
+#define ENTER 0
 
 extern long lastreconnectattempt;
 extern long anunciaDisposito;

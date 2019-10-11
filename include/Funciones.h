@@ -7,7 +7,7 @@ void muestraPagina();
 void arranqueNormal();
 void arranqueNormalJson();
 void guarda_config();
-boolean reconnect();
+bool reconnect();
 void registerDevice(String);
 void reloj();
 void tomaHora(uint8_t[]);
