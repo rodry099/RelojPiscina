@@ -17,24 +17,14 @@ void reloj(){
     {
         if (Reloj.LastError() != 0)
         {
-            // we have a communications error
-            // see https://www.arduino.cc/en/Reference/WireEndTransmission for 
-            // what the number means
+            
             Serial.print("RTC communications error = ");
             Serial.println(Reloj.LastError());
         }
         else
         {
-            // Common Causes:
-            //    1) first time you ran and the device wasn't running yet
-            //    2) the battery on the device is low or even missing
-
-            Serial.println("RTC lost confidence in the DateTime!");
-
-            // following line sets the RTC to the date & time this sketch was compiled
-            // it will also reset the valid flag internally unless the Reloj device is
-            // having an issue
             
+            Serial.println("RTC lost confidence in the DateTime!");
             Reloj.SetDateTime(dt);
         }
     }

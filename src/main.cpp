@@ -127,6 +127,8 @@ void loop() {
     displayDiaHour(horaYdia);
   }
 
+  temporizador(horaYdia); //comprueba programacion
+
     client.loop();
     delay(1);
 

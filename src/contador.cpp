@@ -1,3 +1,7 @@
+/* cuenta tiempo para volver 
+a pagina inicial y no bloquear
+la aplicacion */
+
 #include <Arduino.h>
 #include "Librerias.h"
 #include "Globales.h"

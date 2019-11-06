@@ -7,6 +7,7 @@ void muestraPagina();
 void arranqueNormal();
 void arranqueNormalJson();
 void guarda_config();
+void temporizador(uint8_t []);
 bool reconnect();
 void registerDevice(String);
 void reloj();
